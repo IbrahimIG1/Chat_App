@@ -1,4 +1,5 @@
 import 'package:chaty/constance/uId.dart';
+import 'package:chaty/home/app_cubit/app_cubit.dart';
 import 'package:chaty/model/users_model/users_model.dart';
 import 'package:chaty/screens/messages/chat_screen/chat_cubit/chat_cubit.dart';
 import 'package:chaty/screens/messages/chat_screen/chat_cubit/chat_cubit_state.dart';
@@ -14,7 +15,7 @@ class MessagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var messageController = TextEditingController();
     return BlocProvider(
-        create: (context) => ChatCubit(),
+        create: (context) => ChatCubit()..getMessage(receverId: userModel.uId!),
         child: BlocConsumer<ChatCubit, ChatCubitState>(
             listener: (context, state) {},
             builder: (context, state) {
@@ -39,26 +40,33 @@ class MessagePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 15,
+                        Expanded(
+                          child: ListView.separated(
+                              itemBuilder: (context, index) {
+                                if (cubit.messages[index].senderId == uId) {
+                                  return message(
+                                      txt: cubit.messages[index].text!,
+                                      color: Colors.blueAccent,
+                                      topRight: 20,
+                                      topLeft: 0,
+                                      align: Alignment.topLeft);
+                                } else {
+                                  return message(
+                                      txt: cubit.messages[index].text!,
+                                      color: Colors.grey,
+                                      topRight: 0,
+                                      topLeft: 20,
+                                      align: Alignment.topRight);
+                                }
+                              },
+                              separatorBuilder: (context, index) => SizedBox(
+                                    height: 15,
+                                  ),
+                              itemCount: cubit.messages.length),
                         ),
-                        
-                        message(
-                            txt: 'txt',
-                            color: Colors.blueAccent,
-                            topRight: 20,
-                            topLeft: 0,
-                            align: Alignment.topLeft),
                         SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
-                        message(
-                            txt: 'txt',
-                            color: Colors.grey,
-                            topRight: 0,
-                            topLeft: 20,
-                            align: Alignment.topRight),
-                        Spacer(),
                         Container(
                           height: 60,
                           child: Row(
@@ -89,21 +97,24 @@ class MessagePage extends StatelessWidget {
   }) =>
       Align(
         alignment: align,
-        child: Container(
-          width: 200,
-          decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(topRight),
-                topLeft: Radius.circular(topLeft),
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              )),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-            child: Text(
-              txt,
-              style: TextStyle(fontSize: 18),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 200),
+          child: Container(
+            decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(topRight),
+                  topLeft: Radius.circular(topLeft),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                )),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+              child: Text(
+                textAlign: TextAlign.right,
+                txt,
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ),
         ),

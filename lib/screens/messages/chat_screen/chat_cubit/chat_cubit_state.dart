@@ -6,3 +6,9 @@ class ChatInitState extends ChatCubitState {}
 class SendMessageSuccessState extends ChatInitState {}
 
 class SendMessageErrorState extends ChatInitState {}
+
+//  Get Messages
+class GetMessageSuccessState extends ChatInitState {}
+
+class GetMessagesErrorState extends ChatInitState {}
+

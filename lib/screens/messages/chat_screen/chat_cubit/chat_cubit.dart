@@ -30,9 +30,9 @@ class ChatCubit extends Cubit<ChatCubitState> {
     FirebaseFirestore.instance
         .collection('users')
         .doc(uId)
-        .collection('Messages')
-        .doc(receverid)
-        .set(chatModel.toMap())
+        .collection('chats')
+        .doc(receverid).collection('messages')
+        .add(chatModel.toMap())
         .then((value) {
       print('Send Done');
       emit(SendMessageSuccessState());
@@ -44,9 +44,9 @@ class ChatCubit extends Cubit<ChatCubitState> {
     FirebaseFirestore.instance
         .collection('users')
         .doc(receverid)
-        .collection('Messages')
-        .doc(uId)
-        .set(chatModel.toMap())
+        .collection('chats')
+        .doc(uId).collection('messages')
+        .add(chatModel.toMap())
         .then((value) {
       print('Send Done');
       emit(SendMessageSuccessState());
@@ -56,5 +56,24 @@ class ChatCubit extends Cubit<ChatCubitState> {
     });
   }
 
-  
+  // Get Message
+  List<ChatModel> messages = [];
+  void getMessage({required String receverId}) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId)
+        .collection('chats').doc(receverId).collection('messages')
+        .orderBy('dateTime')
+        .snapshots()
+        .listen((event) {
+      messages = [];
+      event.docs.forEach((element) {
+        messages.add(
+          ChatModel.fromJson(element.data()),
+        );
+      });
+      print('Get Done');
+      emit(GetMessageSuccessState());
+    });
+  }
 }
