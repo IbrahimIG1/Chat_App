@@ -55,4 +55,6 @@ class ChatCubit extends Cubit<ChatCubitState> {
       emit(SendMessageErrorState());
     });
   }
+
+  
 }

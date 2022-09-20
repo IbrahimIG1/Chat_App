@@ -37,43 +37,40 @@ class MessagePage extends StatelessWidget {
                   body: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(
+                          height: 15,
+                        ),
+                        
+                        message(
+                            txt: 'txt',
+                            color: Colors.blueAccent,
+                            topRight: 20,
+                            topLeft: 0,
+                            align: Alignment.topLeft),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        message(
+                            txt: 'txt',
+                            color: Colors.grey,
+                            topRight: 0,
+                            topLeft: 20,
+                            align: Alignment.topRight),
                         Spacer(),
                         Container(
                           height: 60,
                           child: Row(
                             children: [
-                              Expanded(
-                                child: TextField(
-                                  controller: messageController,
-                                  decoration: InputDecoration(
-                                      hintText: 'Write Message...',
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20))),
-                                ),
+                              MessageFeild(
+                                  messageController: messageController),
+                              SizedBox(
+                                width: 8,
                               ),
-                              Container(
-                                height: 50,
-                                width: 60,
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    cubit.sendMessage(
-                                      text: messageController.text,
-                                      dateTime: DateTime.now().toString(),
-                                      senderId: uId,
-                                      receverid: userModel.uId!,
-                                      image: '',
-                                      voice: '',
-                                    );
-                                  },
-                                  child: Icon(
-                                    Icons.send_sharp,
-                                    color: Colors.white,
-                                  ),
-                                  color: Colors.blue,
-                                ),
-                              ),
+                              sendMessageButton(
+                                  cubit: cubit,
+                                  messageController: messageController)
                             ],
                           ),
                         )
@@ -82,4 +79,68 @@ class MessagePage extends StatelessWidget {
                   ));
             }));
   }
+
+  Widget message({
+    required String txt,
+    required Color color,
+    required double topRight,
+    required double topLeft,
+    required Alignment align,
+  }) =>
+      Align(
+        alignment: align,
+        child: Container(
+          width: 200,
+          decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(topRight),
+                topLeft: Radius.circular(topLeft),
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              )),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+            child: Text(
+              txt,
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        ),
+      );
+
+  Widget MessageFeild({required TextEditingController messageController}) =>
+      Expanded(
+        child: TextField(
+          controller: messageController,
+          decoration: InputDecoration(
+              hintText: 'Write Message...',
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
+        ),
+      );
+  Widget sendMessageButton(
+          {required ChatCubit cubit,
+          required TextEditingController messageController}) =>
+      Container(
+        height: 50,
+        width: 60,
+        child: MaterialButton(
+          onPressed: () {
+            cubit.sendMessage(
+              text: messageController.text,
+              dateTime: DateTime.now().toString(),
+              senderId: uId,
+              receverid: userModel.uId!,
+              image: '',
+              voice: '',
+            );
+          },
+          child: Icon(
+            Icons.send_sharp,
+            color: Colors.white,
+          ),
+          color: Colors.blue,
+        ),
+      );
 }
