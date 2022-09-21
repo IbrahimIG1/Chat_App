@@ -1,9 +1,9 @@
 import 'package:chaty/home/app_cubit/app_cubit.dart';
 import 'package:chaty/home/app_cubit/app_cubit_state.dart';
-import 'package:chaty/screens/messages/chat_screen/chat_page.dart';
+import 'package:chaty/screens/messages/chat_screen/chat_screen.dart';
 import 'package:chaty/shared/navigators/navigators.dart';
-import 'package:chaty/widgets/message_item.dart';
-import 'package:chaty/widgets/story_image.dart';
+import 'package:chaty/widgets/messages_items/message_item.dart';
+import 'package:chaty/widgets/story_item/story_image_item.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +62,7 @@ class MessagesScreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  NavigateTo(context, MessagePage(userModel: cubit.usersData[index],));
+                                  NavigateTo(context, MessagePage(receverUserModel: cubit.usersData[index],));
                                 },
                                 child: messageItem(
                                     context: context,

@@ -1,5 +1,5 @@
 import 'package:chaty/screens/Register_Screen/register_cubit/cubit_state.dart';
-import 'package:chaty/model/users_model/users_model.dart';
+import 'package:chaty/model/users_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

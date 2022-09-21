@@ -5,7 +5,8 @@ class ChatModel {
   String? senderId;
   String? receverid;
   String? image;
-  String? voice;
+  String? video;
+  String? rec;
   
 
   ChatModel({
@@ -14,16 +15,18 @@ class ChatModel {
     this.senderId,
     this.receverid,
     this.image,
-    this.voice,
+    this.video,
+    this.rec,
   });
   ChatModel.fromJson(Map<String, dynamic> json) {
     text = json['text'];
     dateTime = json['dateTime'];
+    video = json['video'];
 
     senderId = json['senderId'];
     receverid = json['receverid'];
     image = json['image'];
-    voice = json['voice'];
+    rec = json['voice'];
   }
   Map<String, dynamic> toMap() {
     return {
@@ -32,7 +35,8 @@ class ChatModel {
       'dateTime': dateTime,
       'receverid': receverid,
       'image': image,
-      'voice': voice,
+      'video': video,
+      'voice': rec,
     };
   }
 }

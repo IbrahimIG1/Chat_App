@@ -1,6 +1,5 @@
 import 'package:chaty/home/app_cubit/app_cubit.dart';
 import 'package:chaty/screens/Login_Screen/login.dart';
-import 'package:chaty/algo.dart';
 import 'package:chaty/constance/uId.dart';
 import 'package:chaty/home/home.dart';
 import 'package:chaty/shared/shared_prefrence/shared_prefrence.dart';

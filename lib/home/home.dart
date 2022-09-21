@@ -1,6 +1,6 @@
-import 'package:chaty/model/users_model/users_model.dart';
+import 'package:chaty/model/users_model.dart';
 import 'package:chaty/screens/group/group_screen.dart';
-import 'package:chaty/screens/messages/message_screen.dart';
+import 'package:chaty/screens/messages/messages_screen.dart';
 import 'package:chaty/screens/online/online_screen.dart';
 import 'package:flutter/material.dart';
 

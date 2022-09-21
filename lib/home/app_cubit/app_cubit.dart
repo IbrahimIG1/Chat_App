@@ -1,6 +1,6 @@
 import 'package:chaty/constance/uId.dart';
 import 'package:chaty/home/app_cubit/app_cubit_state.dart';
-import 'package:chaty/model/users_model/users_model.dart';
+import 'package:chaty/model/users_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
